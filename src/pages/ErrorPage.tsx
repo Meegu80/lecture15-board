@@ -20,7 +20,8 @@ function ErrorPage({
         <ErrorMessage>{message}</ErrorMessage>
         <ButtonGroup>
             <ActionButton onClick={() => navigate(-1)}>이전 페이지</ActionButton>
-            <ActionButton outlined={true} onClick={() => navigate("/")}>홈으로 가기</ActionButton></ButtonGroup>
+            <ActionButton outlined={true} onClick={() => navigate("/")}>홈으로 가기</ActionButton>
+        </ButtonGroup>
 
     </Container>
 }

@@ -1,11 +1,15 @@
 import {Outlet} from "react-router";
+import Header from "../components/common/Header.tsx";
 
 function Layout() {
 
     return (
-        <div>
-            <Outlet />
-        </div>
+        <>
+            <Header />
+            <main>
+                <Outlet/>
+            </main>
+        </>
     );
 }
 

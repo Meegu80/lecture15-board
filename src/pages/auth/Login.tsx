@@ -1,20 +1,18 @@
-import {Form, Link, useNavigate} from "react-router";
-import {useForm} from "react-hook-form";
-import {createUserWithEmailAndPassword} from "firebase/auth";
-import {auth} from "../../firebase.ts";
-import {FirebaseError} from "firebase/app";
-import {Container, Input, Switcher, Title} from "../../styles/auth.tsx";
-import {ActionButton} from "../../styles/styles.tsx";
-import type {AuthFormType} from "./Register.tsx";
-import {signInWithEmailAndPassword} from "firebase/auth/cordova";
+import { Container, Form, Input, Switcher, Title } from "../../styles/auth.tsx";
+import { ActionButton } from "../../styles/styles.tsx";
+import { Link, useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
+import type { AuthFormType } from "./Register.tsx";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase.ts";
+import { FirebaseError } from "firebase/app";
 
 function Login() {
-
     const navigate = useNavigate();
     const {
         register,
         handleSubmit,
-        formState: {errors},
+        formState: { errors },
         setError,
     } = useForm<AuthFormType>();
 
@@ -22,24 +20,26 @@ function Login() {
         try {
             await signInWithEmailAndPassword(auth, data.email, data.password);
             navigate("/");
-
         } catch (e) {
             if (e instanceof FirebaseError) {
+                // 사용자가 없습니다 => X
+                // 사용자는 있지만, 비밀번호가 틀렸습니다 => X
+                // 입력된 정보로 사용자 정보를 조회했을 때 없으면 => invalid-credential 로만 출력해줌
                 if (e.code === "auth/invalid-credential") {
-                    setError("root", {message: "이메일 또는 비밀번호가 올바르지 않습니다. "})
+                    setError("root", { message: "이메일 또는 비밀번호가 올바르지 않습니다."});
                 } else {
-                    setError("root", {message: "로그인에 실패하였습니다. "})
+                    setError("root", { message: "로그인에 실패하였습니다."})
                 }
             }
         }
-    };
+    }
 
     return (
         <Container>
             <Title>로그인</Title>
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <Input
-                    {...register("email", {required: "이메일은 필수 입력입니다."})}
+                    {...register("email", { required: "이메일은 필수 입력입니다." })}
                     type={"email"}
                     placeholder={"이메일"}
                 />
@@ -60,7 +60,7 @@ function Login() {
                 {errors.root && <p>{errors.root.message}</p>}
             </Form>
             <Switcher>
-                이미 계정이 있으신가요? <Link to={"/login"}>로그인</Link>
+                계정이 없으신가요? <Link to={"/register"}>회원가입</Link>
             </Switcher>
         </Container>
     );

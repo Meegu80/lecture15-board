@@ -1,10 +1,10 @@
-import {Form, Link, useNavigate} from "react-router";
-import {ActionButton} from "../../styles/styles.tsx";
-import {useForm} from "react-hook-form";
-import {createUserWithEmailAndPassword} from "firebase/auth";
-import {auth} from "../../firebase.ts";
-import {FirebaseError} from "firebase/app";
-import {Container, Input, Switcher, Title} from "../../styles/auth.tsx";
+import { Link, useNavigate } from "react-router";
+import { ActionButton } from "../../styles/styles.tsx";
+import { useForm } from "react-hook-form";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase.ts";
+import { FirebaseError } from "firebase/app";
+import { Container, Form, Input, Switcher, Title } from "../../styles/auth.tsx";
 
 export type AuthFormType = {
     email: string;

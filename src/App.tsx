@@ -1,28 +1,31 @@
 import GlobalStyles from "./styles/GlobalStyles.tsx";
 import {RouterProvider} from "react-router";
-import {router} from "./router/router.tsx";
 import {useEffect, useState} from "react";
 import {auth} from "./firebase.ts";
+import {onAuthStateChanged, type User} from "firebase/auth"
+import router from "./router/router.tsx";
+import Spinner from "./components/spinner/Spinner.tsx";
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
 
-    const init = () => {
-        return auth.authStateReady().then(
-            () => setIsLoading(false),
-        )
+
+    const initAuth = () => {
+        const unsubscribe = onAuthStateChanged(auth, user => {
+            setCurrentUser(user);
+            setIsLoading(false);
+
+        });
+        return unsubscribe;
     }
-    useEffect(() => {
-        init().then(() => {
 
-        })
-
-    }, []);
+    useEffect(() => initAuth(), []);
 
     return (
         <div>
             <GlobalStyles/>
-            {isLoading ? <h1>인증 상태 확인중...</h1> : <RouterProvider router={router}/>}
+            {isLoading ? <Spinner /> : <RouterProvider router={router(currentUser)}/>}
         </div>
     );
 }

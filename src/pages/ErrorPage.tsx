@@ -41,10 +41,10 @@ const ButtonGroup = styled.div`
 // function에서 매개변수가 들어오지 않을 때의 기본값을 설정할 때에는,
 // 선언부에 code = 뭐뭐뭐 형식으로 적을 수 있음
 function ErrorPage({
-                       code = "404",
-                       title = "페이지를 찾을 수 없습니다.",
-                       message = "입력하신 주소가 정확한지 다시 한 번 확인해주세요",
-                   }: Props) {
+    code = "404",
+    title = "페이지를 찾을 수 없습니다.",
+    message = "입력하신 주소가 정확한지 다시 한 번 확인해주세요",
+}: Props) {
     const navigate = useNavigate();
 
     return (

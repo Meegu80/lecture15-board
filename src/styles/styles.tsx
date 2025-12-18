@@ -10,3 +10,12 @@ export const ActionButton = styled.button<{ outlined?: boolean }>`
     background-color: ${props => (props.outlined ? "white" : "#3b82f6")};
     color: ${props => (props.outlined ? "#3b82f6" : "white")};
 `;
+
+export const Textarea = styled.textarea`
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    min-height: 200px;
+    resize: vertical;
+`;

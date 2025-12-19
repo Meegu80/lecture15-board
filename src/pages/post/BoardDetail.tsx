@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { ActionButton } from "../../styles/styles.tsx";
 import { deleteDoc, doc, getDoc, increment, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase.ts";
+import CommentContainer from "../../components/CommentContainer.tsx";
 
 type Props = {
     currentUser: User | null;
@@ -143,6 +144,11 @@ function BoardDetail({ currentUser }: Props) {
                     </>
                 )}
             </ButtonGroup>
+
+            {/* 코멘트 컨테이너에게 2가지 전달이 필요함 */}
+            {/* 1. 이 글과 관련되어져 있는 코멘트를 불러와야 하므로, 글번호(id) 전달 */}
+            {/* 2. 코멘트를 작성하는 사람, 코멘트를 삭제하는 사람의 정보가 필요하므로 currentUser 전달 */}
+            {id && <CommentContainer postId={id} currentUser={currentUser} />}
         </Container>
     );
 }

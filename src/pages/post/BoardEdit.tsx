@@ -67,7 +67,7 @@ function BoardEdit({ currentUser }: Props) {
             const postRef = doc(db, "posts", id);
             await updateDoc(postRef, {
                 title: data.title,
-                content: data.content
+                content: data.content,
             });
             alert("게시글이 수정되었습니다.");
             navigate(`/post/${id}`);
